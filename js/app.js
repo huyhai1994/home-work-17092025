@@ -1,5 +1,5 @@
 const buttonAdd = document.getElementById("button-add");
-const modal = document.body.querySelector(".modal");
+const modal =document.getElementById("modal");
 const buttonClose = document.body.querySelector(".close");
 
 buttonAdd.addEventListener('click',
