@@ -37,27 +37,32 @@ formModal.addEventListener('submit',
     let formData = new FormData(e.target)
     const formProps = Object.fromEntries(formData);
     const newData =  {name: formProps?.name, price: formProps?.price}
-    data.push(newData);
-    renderElement(data);
+    renderOneElement(newData);
   }
 )
 
-renderElement(data);
+renderElements(data);
 
 
-function renderElement(data){
+function renderElements(data){
   data.forEach(
     d => {
-      const tableRow = document.createElement('tr');
-      const tableData1 = document.createElement('td');
-      const tableData2 = document.createElement('td');
-      tableData1.innerText = d.name;
-      tableData2.innerText = d.price;
-      tableRow.append(tableData1);
-      tableRow.append(tableData2);
-      tableBody.append(tableRow);
+      createTableData(d)
     }
   )
 }
 
+function renderOneElement(item){
+  createTableData(item);
+}
 
+function createTableData(d){
+  const tableRow = document.createElement('tr');
+  const tableData1 = document.createElement('td');
+  const tableData2 = document.createElement('td');
+  tableData1.innerText = d.name;
+  tableData2.innerText = d.price;
+  tableRow.append(tableData1);
+  tableRow.append(tableData2);
+  tableBody.append(tableRow);
+}
