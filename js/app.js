@@ -3,7 +3,7 @@ const modal = document.getElementById("modal");
 const buttonClose = document.body.querySelector(".close");
 const tableBody = document.body.querySelector(".table-body");
 const submitButton = document.body.querySelector('.submit-button');
-const  formModal = document.body.querySelector('.modal-form');
+const formModal = document.body.querySelector('.modal-form');
 
 const data = [
   {name: 'Banana', price: "0.99"},
@@ -22,12 +22,12 @@ const data = [
 ]
 buttonAdd.addEventListener('click',
   () => {
-    modal.style.display = "block";
+    openModal();
   }
 )
 buttonClose.addEventListener('click',
   () => {
-    modal.style.display = "none";
+    closeModal();
   }
 )
 
@@ -36,15 +36,17 @@ formModal.addEventListener('submit',
     e.preventDefault();
     let formData = new FormData(e.target)
     const formProps = Object.fromEntries(formData);
-    const newData =  {name: formProps?.name, price: formProps?.price}
+    const newData = {name: formProps?.name, price: formProps?.price}
+    if (!formProps?.name || !formProps?.price) throw new Error('Bad request!!! ');
     renderOneElement(newData);
+    closeModal();
   }
 )
 
 renderElements(data);
 
 
-function renderElements(data){
+function renderElements(data) {
   data.forEach(
     d => {
       createTableData(d)
@@ -52,11 +54,11 @@ function renderElements(data){
   )
 }
 
-function renderOneElement(item){
+function renderOneElement(item) {
   createTableData(item);
 }
 
-function createTableData(d){
+function createTableData(d) {
   const tableRow = document.createElement('tr');
   const tableData1 = document.createElement('td');
   const tableData2 = document.createElement('td');
@@ -65,4 +67,12 @@ function createTableData(d){
   tableRow.append(tableData1);
   tableRow.append(tableData2);
   tableBody.append(tableRow);
+}
+
+function closeModal() {
+  modal.style.display = 'none'; // hoisting
+}
+
+function openModal() {
+  modal.style.display = "block";
 }
